@@ -1,0 +1,19 @@
+MODULE Subject;
+
+// Объявление классов
+CLASS Subject;
+
+// Объявление свойств
+name 'Название'  = DATA BPSTRING[25](Subject);
+profile 'Профиль' = DATA BOOLEAN (Subject);
+
+// Объявление формы
+FORM subjectForm 'Предметы'
+    OBJECTS e = Subject
+    PROPERTIES(e) name, profile, NEW, EDIT, DELETE
+;
+
+// Добавление формы в навигатор
+NAVIGATOR {
+    NEW subjectForm;
+}

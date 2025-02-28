@@ -1,0 +1,22 @@
+MODULE Teachers;
+
+REQUIRE Subject;
+
+// Объявление классов
+CLASS Teachers;
+
+// Объявление свойств
+name 'Имя'  = DATA BPSTRING[50](Teachers);
+subject 'Предметы' = DATA Subject (Teachers);
+nameSubject(Subject s) = name(s);
+
+// Объявление формы
+FORM teacherForm 'Учителя'
+    OBJECTS e = Teachers
+    PROPERTIES(e) name, subject, NEW, EDIT, DELETE
+;
+
+// Добавление формы в навигатор
+NAVIGATOR {
+    NEW teacherForm;
+}

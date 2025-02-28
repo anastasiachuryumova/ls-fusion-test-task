@@ -1,0 +1,43 @@
+MODULE Class;
+
+REQUIRE Subject, Teachers;
+
+// Объявление классов
+CLASS Class;
+
+// Объявление свойств
+number 'Номер'  = DATA INTEGER (Class);
+numberCountToString(s) = STRING[2](number(s));
+letter 'Буква' = DATA STRING[1] (Class);
+numberAndLetter 'Номер и Буква' = DATA STRING[3](Class);
+numberAndLetter = numberCountToString + letter;
+profile 'Профиль' = DATA Subject(Class);
+profileSubject(Subject s) = profile(s);
+tutor 'Классный руководитель' = DATA Teachers(Class);
+tutorName(Teachers t) = name(t);
+isTutor 'Классный руководитель' (Teachers t) = DATA BOOLEAN (Teachers);
+
+CONSTRAINT profile(Class subject) = true MESSAGE 'Может быть только профильным';
+
+// Объявление формы
+FORM classForm 'Классы'
+    OBJECTS c = Class
+    PROPERTIES(c) number, letter, numberAndLetter, profile, tutor, NEW, EDIT, DELETE
+;
+
+// Добавление формы в навигатор
+NAVIGATOR {
+    NEW classForm;
+}
+
+// Расширение формы списка и редактирования
+EXTEND FORM teacherForm
+    OBJECTS t = Teachers
+    PROPERTIES(t) name, subject, isTutor, NEW, EDIT, DELETE
+;
+EXTEND FORM teacherForm
+    OBJECTS q = Teachers
+    PROPERTIES(q) READONLY name, subject, isTutor
+;
+
+
